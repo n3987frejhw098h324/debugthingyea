@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gardens</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #030303; /* Pure dark void */
+            color: #ff1a1a; /* Clean red */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            padding-top: 80px; /* Pushes content down so topbar doesn't cover it */
+        }
+
+        /* --- NEW TOP BAR --- */
+        .topbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            background-color: #030303;
+            border-bottom: 1px solid #220303; /* Subtle line under the whole bar */
+            z-index: 100;
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        /* Top Left Header Area */
+        .topbar-left {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            flex: 1; /* Helps balance the flexbox to keep the center perfectly centered */
+        }
+
+        .topbar-left h1 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: lowercase; 
+        }
+
+        .discord-link {
+            font-size: 0.7rem;
+            color: #ff1a1a;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            opacity: 0.6;
+            transition: opacity 0.2s, transform 0.2s;
+            transform-origin: left;
+        }
+
+        .discord-link:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        /* Center Tab Navigation */
+        .topbar-center {
+            display: flex;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 20px;
+        }
+
+        /* Empty right div to balance the flexbox */
+        .topbar-right {
+            flex: 1;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: #440b0b; /* Dim red for inactive */
+            font-size: 0.9rem;
+            text-transform: lowercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            color: #ff1a1a;
+            transform: scale(1.05);
+        }
+
+        .tab-btn.active {
+            color: #ff1a1a;
+            font-weight: bold;
+            text-shadow: 0 0 8px rgba(255, 26, 26, 0.4);
+        }
+
+        /* Center Layout for Content */
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 320px;
+            animation: fadeIn 1.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        /* Tab Content Areas */
+        .tab-content {
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            animation: slideUp 0.3s ease-out forwards;
+        }
+
+        .tab-content.active {
+            display: flex; /* Shows only the active tab */
+        }
+
+        /* Minimalist Buttons inside tabs */
+        .btn {
+            background: transparent;
+            border: 1px solid #ff1a1a;
+            color: #ff1a1a;
+            padding: 12px 20px;
+            font-size: 0.85rem;
+            text-align: center;
+            text-decoration: none;
+            text-transform: lowercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: block; /* Ensures links behave like buttons */
+        }
+
+        .btn:hover {
+            background: #ff1a1a;
+            color: #030303;
+            transform: scale(1.05);
+        }
+
+        /* Coming Soon Buttons */
+        .btn-soon {
+            background: transparent;
+            border: 1px solid #220303;
+            color: #440b0b;
+            padding: 12px 20px;
+            font-size: 0.85rem;
+            text-align: center;
+            text-transform: lowercase;
+            letter-spacing: 2px;
+            cursor: not-allowed;
+            transition: all 0.2s ease;
+        }
+
+        .btn-soon:hover {
+            transform: scale(1.02);
+            border-color: #440b0b;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="topbar">
+        <div class="topbar-left">
+            <h1>DEBUG PANEL</h1>
+            <a href="https://discord.gg/ggardens" class="discord-link" target="_blank">server ↗</a>
+        </div>
+        
+        <div class="topbar-center">
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab(event, 'games')">games</button>
+                <button class="tab-btn" onclick="switchTab(event, 'shop')">shop</button>
+                <button class="tab-btn" onclick="switchTab(event, 'support')">support</button>
+            </div>
+        </div>
+
+        <div class="topbar-right"></div>
+    </div>
+
+    <div class="main-container">
+        <div id="games" class="tab-content active">
+            <a href="roblox://placeId=96078068813624/" class="btn">Sword Fight</a>
+            <a href="roblox://placeId=91233867472736/" class="btn">Hub</a>
+            <div class="btn-soon">coming soon</div>
+            <div class="btn-soon">coming soon</div>
+            <div class="btn-soon">coming soon</div>
+        </div>
+
+        <div id="shop" class="tab-content">
+            </div>
+
+        <div id="support" class="tab-content">
+            </div>
+    </div>
+
+    <script>
+        function switchTab(evt, tabName) {
+            // Hide all tab content
+            let tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+
+            // Remove 'active' class from all tab buttons
+            let tabBtns = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < tabBtns.length; i++) {
+                tabBtns[i].classList.remove("active");
+            }
+
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+
+</body>
+</html>
